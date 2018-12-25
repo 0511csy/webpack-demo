@@ -4,6 +4,7 @@
 }
 body{
     background: #000;
+    color: white;
 }
 a{
     text-decoration: none;
@@ -61,3 +62,6 @@ li{
      padding: 5px 0;
      display: block;
  }
+.topNavBar nav ul>li>a:hover{
+    border-bottom-color: #DC6465;
+}
