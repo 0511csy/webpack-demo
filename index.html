@@ -5,22 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>方方的个人简历</title>
-    <!--<link rel="stylesheet" href="./style.css">-->
     <link rel="stylesheet" href="style.css">
     <script src="//at.alicdn.com/t/font_988843_41qlntvq06.js"></script>
+    <style type="text/css">
+        .loading{width: 200px; height: 200px; position: relative; }
+        .loading::before,.loading::after{content: '';position: absolute;width: 0px;height: 0px;background: black;border-radius: 50%;top: 0; left: 0;bottom: 0;right: 0;margin: auto;animation: s 1.5s linear infinite;}
+        @keyframes s{ 0%{width: 0px;height: 0px;opacity:1;} 100%{width: 100px;height: 100px;opacity: 0;} }
+        .site-welcome{display:none;position:fixed;top:0;left:0;width: 100%;height: 100%;background: #888;z-index:1;justify-content:center;align-items: center;}
+        .site-welcome.active{display: flex;}
+    </style>
 </head>
 <body>
-    <div class="topNavBar clearfix">
-        <div class="topNavBar-main clearfix">
+    <div id="siteWelcome" class="site-welcome active">
+        <div class="loading"></div>
+    </div>
+    <div id="topNavBar" class="topNavBar clearfix">
+        <div class="topNavBar-inner clearfix">
             <a class="logo" href="#">
                 <span class="rs">RS</span><span class="card">card</span>
             </a>
-            <nav>
-                <ul>
-                    <li><a href="#">关于</a></li>
-                    <li><a href="#">技能</a></li>
-                    <li><a href="#">作品</a></li>
-                    <li><a href="#">博客</a></li>
+            <nav class="menu" style="float:right">
+                <ul class="clearfix">
+                    <li><a href="#siteAbout">关于</a></li>
+                    <li><a href="#siteSkills">技能</a></li>
+                    <li><a href="#siteWorks">作品</a>
+                        <ul class="submenu">
+                            <li>作品1</li>
+                            <li>作品2</li>
+                            <li>作品3</li>
+                        </ul>
+                    </li>
+                    <li><a href="#">博客</a>
+                        <ul class="submenu">
+                            <li>博客1</li>
+                            <li>博客2</li>
+                            <li>博客3</li>
+                        </ul></li>
                     <li><a href="#">日历</a></li>
                     <li><a href="#">联系方式</a></li>
                     <li><a href="#">其他</a></li>
@@ -32,7 +52,7 @@
         <div class="mask"></div>
     </div>
     <main>
-        <div class="userCard">
+        <div id="siteAbout" class="userCard">
             <div class="pictureAndText clearfix">
                 <div class="picture">
                     <img src="img/avatar.jpg" alt="头像">
@@ -95,7 +115,7 @@
     </main>
 
 
-    <section class="skills">
+    <section class="skills" id="siteSkills">
         <h2>技能</h2>
         <ol class="clearfix">
             <li>
@@ -137,7 +157,7 @@
 
         </ol>
     </section>
-    <section class="portfolio">
+    <section class="portfolio" id="siteWorks">
         <h2>作品集</h2>
         <nav>
             <ol class="clearfix">
@@ -173,5 +193,38 @@
         </div>
 
     </section>
+    <script>
+        setTimeout(function(){
+            siteWelcome.classList.remove('active')
+        },1000)
+        window.onscroll = function (ev) {
+            if(window.scrollY>0){
+                topNavBar.classList.add("sticky")
+            }else{
+                topNavBar.classList.remove("sticky")
+            }
+        }
+        var liTags = document.querySelectorAll('nav.menu>ul>li')
+        for(var i=0;i<liTags.length;i++){
+            liTags[i].onmouseenter = function (x) {
+                x.currentTarget.classList.add("active")
+            }
+            liTags[i].onmouseleave = function (x) {
+                x.currentTarget.classList.remove("active")
+            }
+        }
+        let aTags = document.querySelectorAll('nav.menu>ul>li>a')
+            for(let i=0;i<aTags.length;i++){
+                aTags[i].onclick = function (x) {
+                    x.preventDefault()
+                    let a = x.currentTarget
+                    let href = a.getAttribute('href')
+                    let element = document.querySelector(href)
+                    let top = element.offsetTop
+                    window.scrollTo(0,top-80)
+                }
+            }
+
+    </script>
 </body>
 </html>
