@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>方方的个人简历</title>
     <script src="//at.alicdn.com/t/font_988843_41qlntvq06.js"></script>
+
     <link rel="stylesheet" href="style.css">
     <style type="text/css">
         .loading{width: 200px; height: 200px; position: relative; }
@@ -191,9 +192,23 @@
                 <img src="img/3.jpg" alt="">
             </div>
         </div>
-
+    </section>
+    <section class="message">
+        <h2>留言</h2>
+        <ol id="messageList">
+        </ol>
+        <form id="postMessageForm" style="width: 700px; margin: 50px auto;">
+            <label for="">姓名</label>
+            <input type="text" name="name">
+            <label for="">内容</label>
+            <input type="text" name="content">
+            <input type="submit" value="提交">
+        </form>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js"></script>
+    <script src="js/message.js"></script>
+    <script src="js/smoothly-navigation.js"></script>
     <script>
         // setTimeout(function(){
         //     siteWelcome.classList.remove('active')
@@ -244,38 +259,7 @@
                 x.currentTarget.classList.remove("active")
             }
         }
-        //li标签跳跃
-        let aTags = document.querySelectorAll('nav.menu>ul>li>a')
-        function animate(time) {
-            requestAnimationFrame(animate)
-            TWEEN.update(time)
-        }
-        requestAnimationFrame(animate)
-
-            for(let i=0;i<aTags.length;i++){
-                aTags[i].onclick = function (x) {
-                    x.preventDefault()
-                    let a = x.currentTarget
-                    let href = a.getAttribute('href')
-                    let element = document.querySelector(href)
-                    let top = element.offsetTop
-                    // window.scrollTo(0,top-80)
-                    let currentTop = window.scrollY
-                    let targetTop = top-80
-                    let s = targetTop -currentTop
-                    var coords = {y:currentTop}
-                    var t = Math.abs((s/100)*300)
-                    if(t>500){t=500}
-                    var tween = new TWEEN.Tween(coords)
-                        .to({y:targetTop},t)
-                        .easing(TWEEN.Easing.Cubic.InOut)
-                        .onUpdate(function () {
-                            window.scrollTo(0,coords.y)
-                        })
-                        .start()
-                }
-            }
-
+        /
     </script>
 </body>
 </html>
